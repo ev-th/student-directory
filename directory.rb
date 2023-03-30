@@ -42,6 +42,12 @@ def print(names)
   end
 end
 
+def centered_print(names, length)
+  names.each do |student|
+    puts student[:name].center(length)
+  end
+end
+
 def print_using_loop(names)
   i = 0
   while i < names.length
@@ -56,6 +62,15 @@ end
 
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
+end
+
+def length_of_longest_name(names)
+  longest_length = 0
+  names.each do |name|
+    length = name[:name].length
+    longest_length = length if length > longest_length
+  end
+  longest_length
 end
 
 def main_exercise_8_1
@@ -80,6 +95,13 @@ def main_exercise_8_3
   print_footer(STUDENTS)
 end
 
+def main_exercise_8_6
+  print_header
+  format_length = length_of_longest_name(STUDENTS)
+  centered_print(STUDENTS, format_length)
+  print_footer(STUDENTS)
+end
+
 def main_with_interactivity
   students = input_students
   print_header
@@ -92,3 +114,5 @@ def main
   print(STUDENTS)
   print_footer(STUDENTS)
 end
+
+main_exercise_8_6
