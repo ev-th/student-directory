@@ -38,6 +38,14 @@ def print(names)
   end
 end
 
+def print_using_loop(names)
+  i = 0
+  while i < names.length
+    puts "#{i + 1}. #{names[i][:name]} (#{names[i][:cohort]} cohort)"
+    i += 1
+  end
+end
+
 def select_by_first_letter(names, first_letter)
   names.select { |name| name[:name].downcase.start_with?(first_letter.downcase) }
 end
@@ -62,9 +70,9 @@ def main_exercise_8_2
   print_footer(short_students)
 end
 
-def main
+def main_exercise_8_3
   print_header
-  print(STUDENTS)
+  print_using_loop(STUDENTS)
   print_footer(STUDENTS)
 end
 
@@ -73,4 +81,10 @@ def main_with_interactivity
   print_header
   print(students)
   print_footer(students)
+end
+
+def main
+  print_header
+  print(STUDENTS)
+  print_footer(STUDENTS)
 end
