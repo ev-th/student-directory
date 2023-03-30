@@ -107,7 +107,7 @@ def select_by_first_letter(names, first_letter)
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great #{names.count == 1 ? 'student' : 'students'}"
 end
 
 def length_of_longest_name(names)
@@ -173,4 +173,3 @@ def main
   print(STUDENTS)
   print_footer(STUDENTS)
 end
-main_exercise_8_8
