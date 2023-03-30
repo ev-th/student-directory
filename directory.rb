@@ -1,8 +1,8 @@
 STUDENTS = [
-  { name: 'Dr. Hannibal Lecter', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
+  { name: 'Dr. Hannibal Lecter', cohort: :january, hobbies: ['villainy'], country_of_birth: 'Villainville',
     height: :tall },
-  { name: 'Darth Vader', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
-  { name: 'Nurse Ratched', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Darth Vader', cohort: :february, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Nurse Ratched', cohort: :february, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
   { name: 'Michael Corleone', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
     height: :tall },
   { name: 'Alex DeLarge', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
@@ -93,6 +93,15 @@ def print_using_loop(names)
   end
 end
 
+def print_by_cohort(names)
+  cohorts = names.map { |name| name[:cohort] }.uniq
+  cohorts.each do |cohort|
+    puts "Students in the #{cohort} cohort:"
+    cohort_names = names.select { |name| name[:cohort] == cohort }
+    puts cohort_names.map { |name| name[:name] }.join(', ')
+  end
+end
+
 def select_by_first_letter(names, first_letter)
   names.select { |name| name[:name].downcase.start_with?(first_letter.downcase) }
 end
@@ -146,6 +155,12 @@ def main_exercise_8_7
   print_footer(students)
 end
 
+def main_exercise_8_8
+  print_header
+  print_by_cohort(STUDENTS)
+  print_footer(STUDENTS)
+end
+
 def main_with_interactivity
   students = input_students
   print_header
@@ -158,3 +173,4 @@ def main
   print(STUDENTS)
   print_footer(STUDENTS)
 end
+main_exercise_8_8
