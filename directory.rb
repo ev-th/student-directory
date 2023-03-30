@@ -55,6 +55,13 @@ def main_exercise_8_1
   print_footer(filtered_names)
 end
 
+def main_exercise_8_2
+  short_students = STUDENTS.select { |student| student[:name].length < 12 }
+  print_header
+  print(short_students)
+  print_footer(short_students)
+end
+
 def main
   print_header
   print(STUDENTS)
