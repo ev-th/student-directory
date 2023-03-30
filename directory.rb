@@ -1,15 +1,19 @@
 STUDENTS = [
-  { name: 'Dr. Hannibal Lecter', cohort: :november },
-  { name: 'Darth Vader', cohort: :november },
-  { name: 'Nurse Ratched', cohort: :november },
-  { name: 'Michael Corleone', cohort: :november },
-  { name: 'Alex DeLarge', cohort: :november },
-  { name: 'The Wicked Witch of the West', cohort: :november },
-  { name: 'Terminator', cohort: :november },
-  { name: 'Freddy Krueger', cohort: :november },
-  { name: 'The Joker', cohort: :november },
-  { name: 'Joffrey Baratheon', cohort: :november },
-  { name: 'Norman Bates', cohort: :november }
+  { name: 'Dr. Hannibal Lecter', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
+    height: :tall },
+  { name: 'Darth Vader', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Nurse Ratched', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Michael Corleone', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
+    height: :tall },
+  { name: 'Alex DeLarge', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'The Wicked Witch of the West', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
+    height: :tall },
+  { name: 'Terminator', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Freddy Krueger', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'The Joker', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall },
+  { name: 'Joffrey Baratheon', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville',
+    height: :tall },
+  { name: 'Norman Bates', cohort: :november, hobbies: ['villainy'], country_of_birth: 'Villainville', height: :tall }
 ]
 
 def input_students
