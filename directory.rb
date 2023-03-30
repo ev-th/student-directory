@@ -1,4 +1,4 @@
-students = [
+STUDENTS = [
   { name: 'Dr. Hannibal Lecter', cohort: :november },
   { name: 'Darth Vader', cohort: :november },
   { name: 'Nurse Ratched', cohort: :november },
@@ -38,13 +38,32 @@ def print(names)
   end
 end
 
+def select_by_first_letter(names, first_letter)
+  names.select { |name| name[:name].downcase.start_with?(first_letter.downcase) }
+end
+
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-# Uncomment to add students interactively.
-# students = input_students
+def main_exercise_8_1
+  puts 'Select first letter of students for listing: '
+  letter = gets.chomp
+  print_header
+  filtered_names = select_by_first_letter(STUDENTS, letter)
+  print(filtered_names)
+  print_footer(filtered_names)
+end
 
-print_header
-print(students)
-print_footer(students)
+def main
+  print_header
+  print(STUDENTS)
+  print_footer(STUDENTS)
+end
+
+def main_with_interactivity
+  students = input_students
+  print_header
+  print(students)
+  print_footer(students)
+end
