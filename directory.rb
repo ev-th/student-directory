@@ -13,10 +13,10 @@ students = [
 ]
 
 def input_students
+  students = []
+
   puts 'Please enter the names of the students'
   puts 'To finish, just hit return twice'
-
-  students = []
   name = gets.chomp
 
   until name.empty?
