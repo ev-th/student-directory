@@ -31,6 +31,43 @@ def input_students
   students
 end
 
+def input_students_names_and_cohort
+  students = []
+
+  puts 'Please enter the names of the students'
+  puts 'To finish, just hit return twice'
+  name = gets.chomp
+
+  until name.empty?
+    students << { name: name }
+    puts "Now we have #{students.count} students"
+    name = gets.chomp
+  end
+
+  months = %w[
+    january february march april may june
+    july august september october november december
+  ]
+  default_cohort = :november
+  puts 'Now select the cohort for each new student, by entering the name of a month.'
+  puts "Press enter to select default cohort (#{default_cohort})."
+  students.each_with_index do |student, i|
+    while true
+      puts "Please enter the cohort for #{student[:name]}: "
+      month = gets.chomp.downcase
+
+      if months.include?(month)
+        students[i][:cohort] = month.to_sym
+        break
+      end
+      if month.empty?
+        students[i][:cohort] = default_cohort
+        break
+      end
+    end
+  end
+end
+
 def print_header
   puts 'The students of Villains Academy'
   puts '-------------'
@@ -102,6 +139,13 @@ def main_exercise_8_6
   print_footer(STUDENTS)
 end
 
+def main_exercise_8_7
+  students = input_students_names_and_cohort
+  print_header
+  print(students)
+  print_footer(students)
+end
+
 def main_with_interactivity
   students = input_students
   print_header
@@ -114,5 +158,3 @@ def main
   print(STUDENTS)
   print_footer(STUDENTS)
 end
-
-main_exercise_8_6
