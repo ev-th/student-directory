@@ -163,6 +163,8 @@ end
 
 def main_with_interactivity
   students = input_students
+  return if students.empty?
+
   print_header
   print(students)
   print_footer(students)
