@@ -20,7 +20,9 @@ def process(selection)
   when '1'
     input_students
   when '2'
-    show_students
+    students = StudentBody.new(@students)
+    students.show_students
+    # show_students
   when '3'
     save_students
   when '4'
@@ -44,25 +46,31 @@ def input_students
   end
 end
 
-def show_students
-  print_header
-  print_students_list(@students)
-  print_footer(@students)
-end
-
-def print_header
-  puts 'The students of Villains Academy'
-  puts '-------------'
-end
-
-def print_students_list(names)
-  names.each_with_index do |student, i|
-    puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+class StudentBody
+  def initialize(students)
+    @students = students
   end
-end
 
-def print_footer(names)
-  puts "Overall, we have #{names.count} great #{names.count == 1 ? 'student' : 'students'}"
+  def show_students
+    print_header
+    print_students_list
+    print_footer
+  end
+
+  def print_header
+    puts 'The students of Villains Academy'
+    puts '-------------'
+  end
+
+  def print_students_list
+    @students.each_with_index do |student, i|
+      puts "#{i + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  end
+
+  def print_footer
+    puts "Overall, we have #{@students.count} great #{@students.count == 1 ? 'student' : 'students'}"
+  end
 end
 
 def save_students
