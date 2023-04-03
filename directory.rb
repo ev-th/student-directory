@@ -35,12 +35,12 @@ end
 def input_students
   puts 'Please enter the names of the students'
   puts 'To finish, just hit return twice'
-  name = STDIN.gets.chomp
+  loop do
+    name = STDIN.gets.chomp
+    break if name.empty?
 
-  until name.empty?
     add_student(name)
     puts "Now we have #{@students.count} students"
-    name = STDIN.gets.chomp
   end
 end
 
