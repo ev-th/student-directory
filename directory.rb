@@ -84,22 +84,29 @@ def load_students(filename = 'students.csv')
   file.close
 end
 
-def try_load_students
-  filename = ARGV.first
-  return if filename.nil?
-
-  if File.exist?(filename)
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else
-    puts "Sorry #{filename} doesn't exist."
-    exit
-  end
-end
-
 def add_student(name, cohort = 'november')
   @students << { name: name, cohort: cohort.to_sym }
 end
 
-try_load_students
+def load_students(filename = 'students.csv')
+  file = File.open(filename, 'r')
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',')
+    add_student(name, cohort)
+  end
+  puts "Loaded #{@students.count} from #{filename}"
+  file.close
+end
+
+def get_students_file
+  filename = ARGV.first
+  return 'students.csv' if filename.nil?
+  return filename if File.exist?(filename)
+
+  puts "Sorry #{filename} doesn't exist."
+  exit
+end
+
+file = get_students_file
+load_students(file)
 interactive_menu
