@@ -24,7 +24,8 @@ def process(selection)
     students.show_students
     # show_students
   when '3'
-    save_students
+    students = StudentBody.new(@students)
+    students.save_students
   when '4'
     load_students
   when '9'
@@ -71,16 +72,16 @@ class StudentBody
   def print_footer
     puts "Overall, we have #{@students.count} great #{@students.count == 1 ? 'student' : 'students'}"
   end
-end
 
-def save_students
-  file = File.open('students.csv', 'w')
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(',')
-    file.puts csv_line
+  def save_students
+    file = File.open('students.csv', 'w')
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(',')
+      file.puts csv_line
+    end
+    file.close
   end
-  file.close
 end
 
 def load_students(filename = 'students.csv')
