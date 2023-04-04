@@ -84,6 +84,7 @@ class StudentBody
       file.puts csv_line
     end
     file.close
+    puts "Data saved to #{DEFAULT_STUDENT_FILE}."
   end
 
   def add_student(name, cohort = 'november')
