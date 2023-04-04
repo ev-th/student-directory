@@ -1,35 +1,37 @@
-def interactive_menu
-  students = StudentBody.new
-  file = get_students_file
-  students.load_students(file)
-  loop do
-    print_menu
-    process(STDIN.gets.chomp, students)
+class InteractiveMenu
+  def interactive_menu
+    students = StudentBody.new
+    file = get_students_file
+    students.load_students(file)
+    loop do
+      print_menu
+      process(STDIN.gets.chomp, students)
+    end
   end
-end
-
-def print_menu
-  puts '1. Input the students'
-  puts '2. Show the students'
-  puts '3. Save the list to students.csv'
-  puts '4. Load the list from students.csv'
-  puts '9. Exit'
-end
-
-def process(selection, students)
-  case selection
-  when '1'
-    students.input_students
-  when '2'
-    students.show_students
-  when '3'
-    students.save_students
-  when '4'
-    students.load_students
-  when '9'
-    exit
-  else
-    puts "I don't know what you meant. Try again."
+  
+  def print_menu
+    puts '1. Input the students'
+    puts '2. Show the students'
+    puts '3. Save the list to students.csv'
+    puts '4. Load the list from students.csv'
+    puts '9. Exit'
+  end
+  
+  def process(selection, students)
+    case selection
+    when '1'
+      students.input_students
+    when '2'
+      students.show_students
+    when '3'
+      students.save_students
+    when '4'
+      students.load_students
+    when '9'
+      exit
+    else
+      puts "I don't know what you meant. Try again."
+    end
   end
 end
 
@@ -120,4 +122,5 @@ def get_students_file
   exit
 end
 
-interactive_menu
+menu = InteractiveMenu.new
+menu.interactive_menu
