@@ -19,6 +19,7 @@ class InteractiveMenu
     puts '2. Show the students'
     puts '3. Save the list to students.csv'
     puts '4. Load the list from students.csv'
+    puts '5. Print the source code of this file'
     puts '9. Exit'
   end
 
@@ -32,6 +33,8 @@ class InteractiveMenu
       @students.save_students
     when '4'
       @students.load_students
+    when '5'
+      print_source_code
     when '9'
       exit
     else
@@ -106,6 +109,10 @@ def get_csv_file
 
   puts "Sorry #{filename} doesn't exist."
   exit
+end
+
+def print_source_code
+  system("cat #{__FILE__}")
 end
 
 DEFAULT_STUDENT_FILE = 'students.csv'
