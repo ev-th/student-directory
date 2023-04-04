@@ -1,3 +1,5 @@
+require 'CSV'
+
 class InteractiveMenu
   def initialize(student_body)
     @students = student_body
@@ -73,15 +75,15 @@ class StudentBody
   end
 
   def print_footer
-    puts "Overall, we have #{@students.count} great #{@students.count == 1 ? 'student' : 'students'}"
+    puts "Overall, we have #{@students.count} great #{
+      @students.count == 1 ? 'student' : 'students'
+    }"
   end
 
   def save_students
-    open(DEFAULT_STUDENT_FILE, 'w') do |file|
+    CSV.open(DEFAULT_STUDENT_FILE, 'w') do |csv|
       @students.each do |student|
-        student_data = [student[:name], student[:cohort]]
-        csv_line = student_data.join(',')
-        file.puts csv_line
+        csv << [student[:name], student[:cohort]]
       end
     end
     puts "Data saved to #{DEFAULT_STUDENT_FILE}."
@@ -92,13 +94,8 @@ class StudentBody
   end
 
   def load_students(filename = DEFAULT_STUDENT_FILE)
-    open(filename, 'r') do |file|
-      file.readlines.each do |line|
-        name, cohort = line.chomp.split(',')
-        add_student(name, cohort)
-      end
-      puts "Loaded #{@students.count} from #{filename}"
-    end
+    CSV.foreach(filename) { |name, cohort| add_student(name, cohort) }
+    puts "Loaded #{@students.count} from #{filename}"
   end
 end
 
