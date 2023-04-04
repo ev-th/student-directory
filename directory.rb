@@ -1,9 +1,10 @@
-@students = []
-
 def interactive_menu
+  students = StudentBody.new
+  file = get_students_file
+  students.load_students(file)
   loop do
     print_menu
-    process(STDIN.gets.chomp)
+    process(STDIN.gets.chomp, students)
   end
 end
 
@@ -15,19 +16,16 @@ def print_menu
   puts '9. Exit'
 end
 
-def process(selection)
+def process(selection, students)
   case selection
   when '1'
-    input_students
+    students.input_students
   when '2'
-    students = StudentBody.new(@students)
     students.show_students
-    # show_students
   when '3'
-    students = StudentBody.new(@students)
     students.save_students
   when '4'
-    load_students
+    students.load_students
   when '9'
     exit
   else
@@ -35,21 +33,21 @@ def process(selection)
   end
 end
 
-def input_students
-  puts 'Please enter the names of the students'
-  puts 'To finish, just hit return twice'
-  loop do
-    name = STDIN.gets.chomp
-    break if name.empty?
-
-    add_student(name)
-    puts "Now we have #{@students.count} students"
-  end
-end
-
 class StudentBody
-  def initialize(students)
-    @students = students
+  def initialize
+    @students = []
+  end
+
+  def input_students
+    puts 'Please enter the names of the students'
+    puts 'To finish, just hit return twice'
+    loop do
+      name = STDIN.gets.chomp
+      break if name.empty?
+  
+      add_student(name)
+      puts "Now we have #{@students.count} students"
+    end
   end
 
   def show_students
@@ -82,15 +80,20 @@ class StudentBody
     end
     file.close
   end
-end
 
-def load_students(filename = 'students.csv')
-  file = File.open(filename, 'r')
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort)
+  def add_student(name, cohort = 'november')
+    @students << { name: name, cohort: cohort.to_sym }
   end
-  file.close
+
+  def load_students(filename = 'students.csv')
+    file = File.open(filename, 'r')
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_student(name, cohort)
+    end
+    puts "Loaded #{@students.count} from #{filename}"
+    file.close
+  end
 end
 
 def add_student(name, cohort = 'november')
@@ -116,6 +119,4 @@ def get_students_file
   exit
 end
 
-file = get_students_file
-load_students(file)
 interactive_menu
