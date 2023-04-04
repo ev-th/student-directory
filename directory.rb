@@ -102,21 +102,6 @@ class StudentBody
   end
 end
 
-  def add_student(name, cohort = 'november')
-    @students << { name: name, cohort: cohort.to_sym }
-  end
-
-  def load_students(filename = DEFAULT_STUDENT_FILE)
-    file = File.open(filename, 'r')
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      add_student(name, cohort)
-    end
-    puts "Loaded #{@students.count} from #{filename}"
-    file.close
-  end
-end
-
 def get_csv_file
   filename = ARGV.first
   return DEFAULT_STUDENT_FILE if filename.nil?
