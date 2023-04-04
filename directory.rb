@@ -11,7 +11,7 @@ class InteractiveMenu
       process(STDIN.gets.chomp)
     end
   end
-  
+
   def print_options
     puts '1. Input the students'
     puts '2. Show the students'
@@ -19,7 +19,7 @@ class InteractiveMenu
     puts '4. Load the list from students.csv'
     puts '9. Exit'
   end
-  
+
   def process(selection)
     case selection
     when '1'
@@ -49,7 +49,7 @@ class StudentBody
     loop do
       name = STDIN.gets.chomp
       break if name.empty?
-  
+
       add_student(name)
       puts "Now we have #{@students.count} students"
     end
@@ -77,13 +77,13 @@ class StudentBody
   end
 
   def save_students
-    file = File.open(DEFAULT_STUDENT_FILE, 'w')
-    @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(',')
-      file.puts csv_line
+    open(DEFAULT_STUDENT_FILE, 'w') do |file|
+      @students.each do |student|
+        student_data = [student[:name], student[:cohort]]
+        csv_line = student_data.join(',')
+        file.puts csv_line
+      end
     end
-    file.close
     puts "Data saved to #{DEFAULT_STUDENT_FILE}."
   end
 
@@ -92,13 +92,13 @@ class StudentBody
   end
 
   def load_students(filename = DEFAULT_STUDENT_FILE)
-    file = File.open(filename, 'r')
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      add_student(name, cohort)
+    open(filename, 'r') do |file|
+      file.readlines.each do |line|
+        name, cohort = line.chomp.split(',')
+        add_student(name, cohort)
+      end
+      puts "Loaded #{@students.count} from #{filename}"
     end
-    puts "Loaded #{@students.count} from #{filename}"
-    file.close
   end
 end
 
