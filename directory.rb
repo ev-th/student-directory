@@ -96,18 +96,19 @@ class StudentBody
   end
 end
 
-def add_student(name, cohort = 'november')
-  @students << { name: name, cohort: cohort.to_sym }
-end
-
-def load_students(filename = 'students.csv')
-  file = File.open(filename, 'r')
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort)
+  def add_student(name, cohort = 'november')
+    @students << { name: name, cohort: cohort.to_sym }
   end
-  puts "Loaded #{@students.count} from #{filename}"
-  file.close
+
+  def load_students(filename = 'students.csv')
+    file = File.open(filename, 'r')
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_student(name, cohort)
+    end
+    puts "Loaded #{@students.count} from #{filename}"
+    file.close
+  end
 end
 
 def get_students_file
