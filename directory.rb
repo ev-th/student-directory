@@ -1,15 +1,18 @@
 class InteractiveMenu
-  def interactive_menu
-    students = StudentBody.new
-    file = get_students_file
-    students.load_students(file)
+  def initialize(student_body)
+    @students = student_body
+  end
+
+  def main_loop
+    file = get_csv_file
+    @students.load_students(file)
     loop do
-      print_menu
-      process(STDIN.gets.chomp, students)
+      print_options
+      process(STDIN.gets.chomp)
     end
   end
   
-  def print_menu
+  def print_options
     puts '1. Input the students'
     puts '2. Show the students'
     puts '3. Save the list to students.csv'
@@ -17,16 +20,16 @@ class InteractiveMenu
     puts '9. Exit'
   end
   
-  def process(selection, students)
+  def process(selection)
     case selection
     when '1'
-      students.input_students
+      @students.input_students
     when '2'
-      students.show_students
+      @students.show_students
     when '3'
-      students.save_students
+      @students.save_students
     when '4'
-      students.load_students
+      @students.load_students
     when '9'
       exit
     else
@@ -74,7 +77,7 @@ class StudentBody
   end
 
   def save_students
-    file = File.open('students.csv', 'w')
+    file = File.open(DEFAULT_STUDENT_FILE, 'w')
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
       csv_line = student_data.join(',')
@@ -87,7 +90,7 @@ class StudentBody
     @students << { name: name, cohort: cohort.to_sym }
   end
 
-  def load_students(filename = 'students.csv')
+  def load_students(filename = DEFAULT_STUDENT_FILE)
     file = File.open(filename, 'r')
     file.readlines.each do |line|
       name, cohort = line.chomp.split(',')
@@ -102,7 +105,7 @@ end
     @students << { name: name, cohort: cohort.to_sym }
   end
 
-  def load_students(filename = 'students.csv')
+  def load_students(filename = DEFAULT_STUDENT_FILE)
     file = File.open(filename, 'r')
     file.readlines.each do |line|
       name, cohort = line.chomp.split(',')
@@ -113,14 +116,16 @@ end
   end
 end
 
-def get_students_file
+def get_csv_file
   filename = ARGV.first
-  return 'students.csv' if filename.nil?
+  return DEFAULT_STUDENT_FILE if filename.nil?
   return filename if File.exist?(filename)
 
   puts "Sorry #{filename} doesn't exist."
   exit
 end
 
-menu = InteractiveMenu.new
-menu.interactive_menu
+DEFAULT_STUDENT_FILE = 'students.csv'
+students = StudentBody.new
+menu = InteractiveMenu.new(students)
+menu.main_loop
